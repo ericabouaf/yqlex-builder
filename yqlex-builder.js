@@ -1,7 +1,9 @@
 (function() {
 
-    var Dom = YAHOO.util.Dom,
-        Event = YAHOO.util.Event,
+    var util= YAHOO.util,
+        Dom = util.Dom,
+        Event = util.Event,
+        widget = YAHOO.widget,
 
 		sRoleButtonTemplate = '<button type="button">role: none</button>',		
 		sBodyRoleButtonTemplate = '<button id="body-button" type="button">role: none</button>',
@@ -12,11 +14,11 @@
 		oFooterRoleButton;
 
 
-    YAHOO.util.GridBuilder = {
+    util.GridBuilder = {
 
         init: function() {
            
-           YAHOO.util.GridBuilder.propertiesPanel = new inputEx.widget.Dialog({
+           util.GridBuilder.propertiesPanel = new inputEx.widget.Dialog({
         			inputExDef: {
         			         type: 'form',
         			         inputParams: {
@@ -27,9 +29,9 @@
         										],
         			            buttons: [
         			               {type: 'button', value: 'Save', onClick: function() { 
-        			                  YAHOO.util.GridBuilder.setPageProperties(YAHOO.util.GridBuilder.propertiesPanel.getForm().getValue());
+        			                  util.GridBuilder.setPageProperties(util.GridBuilder.propertiesPanel.getForm().getValue());
         								}},
-        			               {type: 'button', value: 'Cancel', onClick: function() { YAHOO.util.GridBuilder.propertiesPanel.hide(); } }
+        			               {type: 'button', value: 'Cancel', onClick: function() { util.GridBuilder.propertiesPanel.hide(); } }
         			            ]
         			         }
         			      },
@@ -45,7 +47,7 @@
         			}
         	});
 
-         this.yqlPanel = new YAHOO.widget.Panel('yqlHolder', {
+         this.yqlPanel = new widget.Panel('yqlHolder', {
 		            close: true,
 		            visible: false,
         				modal: true,
@@ -55,7 +57,7 @@
 		    );
     		 this.yqlPanel.render(document.body);
 		    
-		    this.templatesPanel = new YAHOO.widget.Panel('templatesHolder', {
+		    this.templatesPanel = new widget.Panel('templatesHolder', {
  		            close: true,
  		            visible: false,
          			modal: true,
@@ -66,8 +68,8 @@
     		 this.templatesPanel.render(document.body);
 
 
-          YAHOO.inputEx.spacerUrl = "http://javascript.neyric.com/inputex/images/space.gif";
-		    this.templates = new YAHOO.inputEx.ListField({
+          inputEx.spacerUrl = "http://javascript.neyric.com/inputex/images/space.gif";
+		    this.templates = new inputEx.ListField({
     			listLabel: 'Templates',
     			elementType: {type: 'text', inputParams:{ rows: 5, cols: 60 } },
     			value: ['\n{for p in results.photo}\n	  <a href="http://farm${p.farm}.static.flickr.com/${p.server}/${p.id}_${p.secret}_b.jpg"><img src="http://farm${p.farm}.static.flickr.com/${p.server}/${p.id}_${p.secret}_s.jpg"></a>\n{/for}'], 
@@ -76,7 +78,7 @@
     		});
 		    
 
-		    this.toolBox = new YAHOO.widget.Panel('toolBoxHolder', {
+		    this.toolBox = new widget.Panel('toolBoxHolder', {
 		            close: true,
 		            visible: false,
 		            xy: [10, 10],
@@ -105,37 +107,40 @@
             this.doc = Dom.get('doc');
             this.template = Dom.get('which_grid');
 
-            Event.on(this.template, 'change', YAHOO.util.GridBuilder.changeType, YAHOO.util.GridBuilder, true);
-            Event.on('splitBody0', 'change', YAHOO.util.GridBuilder.splitBody, YAHOO.util.GridBuilder, true);
-            Event.on('which_doc', 'change', YAHOO.util.GridBuilder.changeDoc, YAHOO.util.GridBuilder, true);
-            Event.on(this.bd, 'mouseover', YAHOO.util.GridBuilder.mouseOver, YAHOO.util.GridBuilder, true);
+            Event.on(this.template, 'change', util.GridBuilder.changeType, util.GridBuilder, true);
+            Event.on('splitBody0', 'change', util.GridBuilder.splitBody, util.GridBuilder, true);
+            Event.on('which_doc', 'change', util.GridBuilder.changeDoc, util.GridBuilder, true);
+            Event.on(this.bd, 'mouseover', util.GridBuilder.mouseOver, util.GridBuilder, true);
 
-            var code_button = new YAHOO.widget.Button('show_code');
-            code_button.on('click', YAHOO.util.GridBuilder.showCode, YAHOO.util.GridBuilder, true);
+            var code_button = new widget.Button('show_code');
+            code_button.on('click', util.GridBuilder.showCode, util.GridBuilder, true);
             
-            var test_button = new YAHOO.widget.Button('test');
-            test_button.on('click', YAHOO.util.GridBuilder.test, YAHOO.util.GridBuilder, true);
+            var test_button = new widget.Button('test');
+            test_button.on('click', util.GridBuilder.test, util.GridBuilder, true);
 
-            var reset_button = new YAHOO.widget.Button('resetBuilder');
-            reset_button.on('click', YAHOO.util.GridBuilder.reset, YAHOO.util.GridBuilder, true);
+            var reset_button = new widget.Button('resetBuilder');
+            reset_button.on('click', util.GridBuilder.reset, util.GridBuilder, true);
 
-            var add_button = new YAHOO.widget.Button('addRow');
-            add_button.on('click', YAHOO.util.GridBuilder.addRow, YAHOO.util.GridBuilder, true);
+            var add_button = new widget.Button('addRow');
+            add_button.on('click', util.GridBuilder.addRow, util.GridBuilder, true);
 
-            var show_button = new YAHOO.widget.Button('showGridBuilder');
-            show_button.on('click', YAHOO.util.GridBuilder.toolBox.show, YAHOO.util.GridBuilder.toolBox, true);
+            var show_button = new widget.Button('showGridBuilder');
+            show_button.on('click', util.GridBuilder.toolBox.show, util.GridBuilder.toolBox, true);
             
-            var properties_button = new YAHOO.widget.Button('setProperties');
-            properties_button.on('click', YAHOO.util.GridBuilder.openPropertiesPanel, YAHOO.util.GridBuilder, true);
+            var properties_button = new widget.Button('setProperties');
+            properties_button.on('click', util.GridBuilder.openPropertiesPanel, util.GridBuilder, true);
             
-            var yql_button = new YAHOO.widget.Button('showYqlEditor');
-            yql_button.on('click', YAHOO.util.GridBuilder.showYqlEditor, YAHOO.util.GridBuilder, true);
+            var yql_button = new widget.Button('showYqlEditor');
+            yql_button.on('click', util.GridBuilder.showYqlEditor, util.GridBuilder, true);
             
-            var templates_button = new YAHOO.widget.Button('showTemplatesEditor');
-            templates_button.on('click', YAHOO.util.GridBuilder.showTemplatesEditor, YAHOO.util.GridBuilder, true);
+            var templates_button = new widget.Button('showTemplatesEditor');
+            templates_button.on('click', util.GridBuilder.showTemplatesEditor, util.GridBuilder, true);
+            
+            var save_button = new widget.Button('save');
+            save_button.on('click', util.GridBuilder.save, util.GridBuilder, true);
             
             
-            this.tooltip = new YAHOO.widget.Tooltip('classPath', { context: 'bd', showDelay:500 } );
+            this.tooltip = new widget.Tooltip('classPath', { context: 'bd', showDelay:500 } );
 
 			//	Prevent tooltips on Buttons, Menus, and reading order indicators
 			this.tooltip.subscribe("contextMouseOver", function (type, args) {
@@ -172,6 +177,8 @@
 			Event.on("show-order", "click", this.toggleOrderBadges, null, this);
 
 			this.splitBody();
+			
+			this.load();
 
         },
         
@@ -243,7 +250,7 @@
 					"search"
 				];
 
-			var oButton = new YAHOO.widget.Button(el, { type: "menu", menu: aRoles, lazyloadmenu: false });
+			var oButton = new widget.Button(el, { type: "menu", menu: aRoles, lazyloadmenu: false });
 			oButton.on("selectedMenuItemChange", this.setRole);
  			
 			var sRole = Dom.getAncestorByTagName(oButton.get("element"), "div").getAttribute("role");
@@ -310,7 +317,7 @@
 
 			}
 
-			oBodyRoleButton = YAHOO.widget.Button.getButton("body-button");
+			oBodyRoleButton = widget.Button.getButton("body-button");
 			
 			this.bodyRoleButtons = aBodyRoleButtons;
 			
@@ -571,8 +578,8 @@
 			var oParentNode = Dom.get('splitBody0').parentNode.parentNode.parentNode;
             oParentNode.insertBefore(oDIV, Dom.get("addRow"));
 
-            Event.on(oSelect, 'change', YAHOO.util.GridBuilder.splitBody, YAHOO.util.GridBuilder, true);
-            Event.on('gridRowDel' + this.rows.length, 'click', YAHOO.util.GridBuilder.delRow, YAHOO.util.GridBuilder, true);
+            Event.on(oSelect, 'change', util.GridBuilder.splitBody, util.GridBuilder, true);
+            Event.on('gridRowDel' + this.rows.length, 'click', util.GridBuilder.delRow, util.GridBuilder, true);
 
             this.splitBody();
 
@@ -807,7 +814,7 @@
             code += '</div>' + "\n";
             
             code += '<script type="text/javascript" src="http://yui.yahooapis.com/' + YAHOO.VERSION + '/build/utilities/utilities.js"></script>\n';
-            code += '<script src="yql-query.js"  type="text/javascript"></script>\n';
+            code += '<script src="http://github.com/neyric/yqlex-builder/raw/804e6d7d5bf773a6a78c7081780915dc33b2e5f5/yql-query.js"  type="text/javascript"></script>\n';
             code += '<script type="text/javascript" src="http://trimpath.googlecode.com/files/trimpath-template-1.0.38.js"></script>\n';
             code += '<script type="text/javascript">\n';
             code += 'var yqlCode = '+YAHOO.lang.JSON.stringify( jsmin("", Dom.get('codeContainer').value ,2) )+";\n";
@@ -844,7 +851,7 @@
 
 			if (!oPanel) {
 			
-				oPanel = new YAHOO.widget.Panel('showCode', {
+				oPanel = new widget.Panel('showCode', {
 	                    close: true,
 	                    draggable: true,
 	                    modal: true,
@@ -914,7 +921,7 @@
           var that= this;
           
           // Minify the javascript (urls are limited....)
-    	    var codeMin = jsmin("", YAHOO.util.Dom.get('codeContainer').value ,2);
+    	    var codeMin = jsmin("", Dom.get('codeContainer').value ,2);
           
      		 YQL.queryCode( codeMin , function(o) {
      				that.jsontreeContainer.innerHTML = "";
@@ -927,17 +934,10 @@
         showTemplatesEditor: function() {
            this.templatesPanel.show();
            
-           /*YQL.queryCode( codeMin , function(o) {
-
-       				that.jsontreeContainer.innerHTML = "";
-
-       				new YAHOO.inputEx.widget.JsonTreeInspector('jsontreeContainer', o);
-       				that.o = o;
-       		   });*/
-       		   
-       	if(this.o) {
-       	   new inputEx.widget.JsonTreeInspector('templateJsontreeContainer', this.o.query.results);
-       	}
+       	  if(this.o) {
+       	     Dom.get('templateJsontreeContainer').innerHTML = "";
+       	     new inputEx.widget.JsonTreeInspector('templateJsontreeContainer', this.o.query.results);
+       	  }
            
         },
         
@@ -955,6 +955,35 @@
            });
 
           this.propertiesPanel.show(); 
+        },
+        
+        save: function() {
+           var config = {
+              code: Dom.get('codeContainer').value,
+              templates: this.templates.getValue(),
+              properties: this.propertiesPanel.getForm().getValue()
+           };
+           Dom.get('link').innerHTML = "<img src='http://yui.yahooapis.com/2.7.0/build/assets/skins/sam/ajax-loader.gif'/>";
+           Permalink.getTiny(config , function(tinyurl){
+              var a = Dom.get('link');
+              a.href=tinyurl;
+              a.innerHTML = tinyurl;
+           });
+        },
+        
+        load: function() {
+           var loadConfig = Permalink.load();
+           
+           if(loadConfig.code) {
+              Dom.get('codeContainer').value = loadConfig.code;
+           }
+           if(loadConfig.templates) {
+              this.templates.setValue(loadConfig.templates);
+           }
+           if(loadConfig.properties) {
+              this.setPageProperties(loadConfig.properties);
+           }
+           
         },
 
         
@@ -1208,7 +1237,7 @@
 
 			if (!oDialog) {
 				
-	            oDialog = new YAHOO.widget.Dialog('showSlider', {
+	            oDialog = new widget.Dialog('showSlider', {
 	                    close: true,
 	                    draggable: true,
 	                    modal: true,
@@ -1240,7 +1269,7 @@
 				
 			    oDialog.render(document.body);
 
-	            oSlider = YAHOO.widget.Slider.getHorizSlider('sliderbg', 'sliderthumb', 0, 200, 1);
+	            oSlider = widget.Slider.getHorizSlider('sliderbg', 'sliderthumb', 0, 200, 1);
 
 	            oSlider.onChange = handleChange;
 
