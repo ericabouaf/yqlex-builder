@@ -42,7 +42,7 @@ Hacking together:
 	- inputEx library (http://javascript.neyric.com/inputex/)
 	- trimpath templates
 	- YQL Execute
-	- appJet.com application to generate xml on the fly
+	- http://javascript.neyric.com/yql/
 	- JSMin to minify the code before sending it to YQL
 	
 	- ... and flickr through the example
