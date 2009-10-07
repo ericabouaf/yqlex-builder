@@ -814,7 +814,7 @@
             code += '</div>' + "\n";
             
             code += '<script type="text/javascript" src="http://yui.yahooapis.com/' + YAHOO.VERSION + '/build/utilities/utilities.js"></script>\n';
-            code += '<script src="http://github.com/neyric/yqlex-builder/raw/804e6d7d5bf773a6a78c7081780915dc33b2e5f5/yql-query.js"  type="text/javascript"></script>\n';
+            code += '<script src="http://github.com/neyric/yqlex-builder/raw/master/yql-query.js"  type="text/javascript"></script>\n';
             code += '<script type="text/javascript" src="http://trimpath.googlecode.com/files/trimpath-template-1.0.38.js"></script>\n';
             code += '<script type="text/javascript">\n';
             code += 'var yqlCode = '+YAHOO.lang.JSON.stringify( jsmin("", Dom.get('codeContainer').value ,2) )+";\n";
